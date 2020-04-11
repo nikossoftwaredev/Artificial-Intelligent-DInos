@@ -7,6 +7,8 @@ var pauseX;
 var pauseY;
 var pause = false;
 var pauseNum = 16;
+var onNum = 17;
+var offNum = 18;
 var labelSpacing = 30;
 var punishJump = true;
 
@@ -34,6 +36,7 @@ var ho_lines = [];
 var radius = 20;
 var inputNames = ["DINO'S Y", "OBJECT DISTANCE","OBJECT WIDTH", "OBJECT HEIGHT","SPEED","BIRD'S Y"];
 var in_checkBoxes = [];
+var ArcadeButtons = [];
 var online = [];
 var outputNames = ["JUMP" , "DUCK"];
 var curBest;
@@ -45,7 +48,7 @@ var replay = false;
 
 
   
-let img,pauseImg;
+let img,pauseImg,buttonOn,buttonOff;
 this.sprites = [];
 let POP_SIZE = 50;
 
@@ -58,6 +61,9 @@ function preload() {
   customFont = loadFont('binchrt.ttf');
   img = loadImage('sprite.png');
   pauseImg = loadImage('pause-play.png');
+  //load pressed and unpressed button
+  buttonOn = loadImage('ButtonP.png');
+  buttonOff = loadImage('ButtonU.png');
   
 }
 
@@ -95,8 +101,11 @@ function setup() {
   setNN();
   
   for(let i =0; i <inputNames.length;i++){
-   in_checkBoxes[i] = createCheckbox("",true);
-   in_checkBoxes[i].position(in_nodes[i].x1 - textWidth(inputNames[i]) - 10,0);//in_nodes[i].y1); 
+    //create i buttons 
+    ArcadeButtons.push(new ArcadeButton(sprites[onNum],sprites[offNum],in_nodes[i].x1 - textWidth(inputNames[i]) - 10,0));
+    //image(sprites[onNum],in_nodes[i].x1 - textWidth(inputNames[i]) - 10,0);
+    //in_checkBoxes[i] = createCheckbox("",true);
+    //in_checkBoxes[i].position(in_nodes[i].x1 - textWidth(inputNames[i]) - 10,0);//in_nodes[i].y1); 
   }
   
   
@@ -133,9 +142,9 @@ function userControls(){
   
   sel = createSelect();
   sel.position(leftX, hiddenLayersInput.y + hiddenLayersInput.height);
-  sel.option('ROULLETE');
-  sel.option('SURVIVAL OF THE FITTEST');
-  sel.option('RANDOM');
+  sel.option('Roullete');
+  sel.option('Survival of the fittest');
+  sel.option('Random');
   
   p = createP('Punish Jump');
   p.position(leftX,sel.y + sel.height - p.height*0.8);
@@ -262,9 +271,9 @@ function selectToString(){
 
 function restart(){
   
-  
-  for(let i =0 ; i<in_checkBoxes.length; i++){
-     online[i] = in_checkBoxes[i].checked();
+  console.log("hi");
+  for(let i =0 ; i< ArcadeButtons.length; i++){
+     online[i] = ArcadeButtons[i].checked;
   }
   
   Gen = 0;
@@ -356,7 +365,7 @@ function keyReleased(){
 
 function mousePressed(){
   
-  if(dist(mouseX,mouseY,pauseX,pauseY) < 25){
+  if(dist(mouseX,mouseY,pauseX,pauseY) < 50){
     if(pause){
       pauseNum = 16;
       loop();
@@ -365,6 +374,17 @@ function mousePressed(){
       pauseNum = 15;
       noLoop();
       pause = true;
+    }
+      
+  }
+  
+  for(let i =0 ; i < ArcadeButtons.length ; i++){
+    
+    if(dist(mouseX,mouseY,ArcadeButtons[i].posX,ArcadeButtons[i].posY) < 30){
+      if(ArcadeButtons[i].checked)
+        ArcadeButtons[i].checked = false;
+      else
+        ArcadeButtons[i].checked = true;
     }
       
   }
@@ -483,7 +503,9 @@ function drawingOnly(){
   
    //reposition the check boxes
   for(let i =0; i<dinoNN.brain.input_nodes;i++){
-   in_checkBoxes[i].position(in_nodes[i].x1 - textWidth(inputNames[i]) - in_checkBoxes[i].height*2,in_nodes[i].y1  - in_checkBoxes[i].height*0.85 + radius*0.3); 
+     //in_checkBoxes[i].position(in_nodes[i].x1 - textWidth(inputNames[i]) - in_checkBoxes[i].height*2,in_nodes[i].y1  - in_checkBoxes[i].height*0.85 + radius*0.3); 
+     ArcadeButtons[i].show();
+     ArcadeButtons[i].position(in_nodes[i].x1 - textWidth(inputNames[i]) -15 - 40 ,in_nodes[i].y1 - 15); 
   }
   
   
@@ -868,7 +890,7 @@ function isMax(){
 function loadSprites(){
    let birdSize= 45,dinoSize = 45,roadWidth = 175,roadHeight  = 16;
    
-   
+   //this.sprites.push(img.get(x,y,width,height))
    this.sprites.push(img.get(229,3,17,35));  //0-small Cactus
    this.sprites.push(img.get(432,3,26,47));  //1-pair of cactuses
    this.sprites.push(img.get(333,3,24,47));  //2-big Cactus   
@@ -889,7 +911,10 @@ function loadSprites(){
    this.sprites.push(img.get(2+roadWidth*4,53,roadWidth,roadHeight));  //14
    
    this.sprites.push(pauseImg.get(0,4,94,94));  //15 play Button
-   this.sprites.push(pauseImg.get(108,4,94,94));  //16
+   this.sprites.push(pauseImg.get(108,4,94,94));  //16 pause Button
+   
+   this.sprites.push(buttonOn.get(0,0,207,207)); //17 button Pressed
+   this.sprites.push(buttonOff.get(0,0,207,207)); //18 button Released
    
    
 
