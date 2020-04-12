@@ -475,14 +475,13 @@ function drawingOnly(){
   text("SPEED: " + my_map.universalSpeed.toFixed(2) + isMax() ,gWidth,20);
   gWidth += textWidth("SPEED:30.00(MAX)")  + labelSpacing;
   
-  
-  text("ALL TIME BEST: " + Math.floor(allTimeBestFitness) ,gWidth,20);
-  gWidth += textWidth("ALL TIME BEST: " + Math.floor(allTimeBestFitness)) + labelSpacing;
-  
-
   let dd = ((Gen+1) * POP_SIZE) -dinosLeft;
   text("DINOS DIED: " + dd,gWidth,20);
   gWidth+= textWidth("DINOS DIED: " + dd)  + labelSpacing;
+  
+  text("HIGH-SCORE: " + Math.floor(allTimeBestFitness) ,gWidth,20);
+  gWidth += textWidth("HIGH-SCORE: " + Math.floor(allTimeBestFitness)) + labelSpacing;
+  
   
   text("SCORE : " + Math.floor(dinos[0].score),gWidth,20); //move it to sketch
   for(let dino of dinos){
