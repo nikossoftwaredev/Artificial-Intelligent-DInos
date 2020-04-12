@@ -73,11 +73,5 @@ select, option {
   width: 152px;
 }
 
-option {
-    font-family: sans-serif;
-  font-size: 15px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
+
 

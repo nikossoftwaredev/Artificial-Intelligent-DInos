@@ -142,7 +142,7 @@ function userControls(){
   
   sel = createSelect();
   sel.position(leftX, hiddenLayersInput.y + hiddenLayersInput.height);
-  sel.option('Roullete');
+  sel.option('Roulete Wheel');
   sel.option('Survival of the fittest');
   sel.option('Random');
   
