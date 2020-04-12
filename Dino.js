@@ -40,7 +40,7 @@ function mutateWeight(x) {
 class Dino{
   
   
-constructor(sprites,my_map,brain,online,playGame){
+constructor(sprites,my_map,brain,online,playGame,loaded){
   this.cmd;
   this.dinoSize =45;
   this.colY = 0;
@@ -52,6 +52,9 @@ constructor(sprites,my_map,brain,online,playGame){
   this.my_map = my_map;
   this.duckTime = 0;
   this.online = online;
+  
+  this.loaded = loaded;
+  this.playGame = playGame;
   
   //Sprites and Animation
   this.sprites = sprites;
@@ -76,8 +79,16 @@ constructor(sprites,my_map,brain,online,playGame){
   // The Neural Network is the Dino's "brain"
   if (brain instanceof NeuralNetwork) {
     this.brain = brain.copy();
-    this.brain.mutate(mutate);
-     this.brain.mutate(mutateWeight);
+    //if the dino is loaded it cannot be mutated
+    //this.brain.mutate(mutate);
+    
+    if(this.loaded){
+     //do nothing
+    }else{
+      this.brain.mutate(mutateWeight);
+      
+    }
+   
    // console.log("a clone" + this.brain);
   }else
     this.brain = new NeuralNetwork(6,my_map.HIDDEN_LAYERS,2); //change to 6 when bird
@@ -89,7 +100,7 @@ constructor(sprites,my_map,brain,online,playGame){
   
     // Create a copy of this dino
   copy() {
-    return new Dino(this.sprites,this.my_map,this.brain);
+    return new Dino(this.sprites,this.my_map,this.brain,this.online,this.playGame,this.loaded);
   }
   
   

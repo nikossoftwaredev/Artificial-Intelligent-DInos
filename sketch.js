@@ -12,7 +12,7 @@ var offNum = 18;
 var labelSpacing = 30;
 var punishJump = true;
 
-var playGame = false;
+
 
 var allTimeBestDino = null;
 var allTimeBestScore = 0;
@@ -45,6 +45,7 @@ var selection_method = 0; //0 = ROULLETE;
 
 var replayDino = null;
 var replay = false;
+var playGame = false;
 
 
   
@@ -92,7 +93,7 @@ function setup() {
   }
  
   for(var i =0; i < POP_SIZE ;i++){
-    dinos.push(new Dino(sprites,my_map,online));
+    dinos.push(new Dino(sprites,my_map,null,online,playGame,replay));
     
   }
   
@@ -222,13 +223,16 @@ function saveBestDino(){
 function loadBestDino(file){
   replay = true;
   
-  let dinoJSON = ajaxGetText(file.name)
+  console.log(file);
+  
+  let dinoJSON = ajaxGetText(file.name);
+  
   let brainD = NeuralNetwork.deserialize(dinoJSON);
   
-  console.log(brainD);
+  //console.log(brainD);
   
-  replayDino = new Dino(sprites,my_map,brainD,online);
-  console.log(replayDino.brain.inputToHidden)
+  replayDino = new Dino(sprites,my_map,brainD,online,playGame,replay);
+  //console.log(replayDino.brain.inputToHidden)
   restart();
   
 }
@@ -271,7 +275,7 @@ function selectToString(){
 
 function restart(){
   
-  console.log("hi");
+  
   for(let i =0 ; i< ArcadeButtons.length; i++){
      online[i] = ArcadeButtons[i].checked;
   }
@@ -336,10 +340,10 @@ function restart(){
     }
     
   }else if(playGame){
-     dinos.push(new Dino(sprites,my_map,null,online,playGame));
+     dinos.push(new Dino(sprites,my_map,null,online,playGame,replay));
   }else{
     for(var i =0; i < POP_SIZE ;i++){
-      dinos.push(new Dino(sprites,my_map,null,online));
+      dinos.push(new Dino(sprites,my_map,null,online,playGame,replay));
     }
   }
   

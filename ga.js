@@ -33,8 +33,6 @@ function allTimeBest(savedDinos){
     allTimeBestScore = curBest.score;
     allTimeBestDino = curBest;
     
-    
-    
   }  
     
 }
