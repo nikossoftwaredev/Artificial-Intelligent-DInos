@@ -1,3 +1,4 @@
+/*--- Generates a Cactus ---*/
 class Obstacle {
 
     constructor(speed, sprites) {
@@ -14,6 +15,7 @@ class Obstacle {
         this.sprites = sprites;
         this.type = floor(random() * 3);
 
+        /*--- Chosing the type of Cactus---*/
         switch (this.type) {
             case 0:
                 this.posW = 17;
@@ -51,7 +53,7 @@ class Obstacle {
     }
 
 
-
+    /*--- Drawing the cactus ---*/
     show() {
 
 
@@ -82,9 +84,6 @@ class Obstacle {
 
 
         } else {
-
-
-            //rect(this.colX,this.posY,this.posW,this.posH); 
             image(this.sprites[this.type], this.colX, this.posY);
         }
 
@@ -95,7 +94,7 @@ class Obstacle {
 
     }
 
-
+/*--- Moving them with a specific speed ---*/
     move() {
 
         this.posX -= this.speed;

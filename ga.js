@@ -1,3 +1,5 @@
+/*--- Setting things up for next Generation ---*/
+
 function nextGeneration() {
 
     normalizeFitness(savedDinos, my_map);
@@ -17,7 +19,7 @@ function nextGeneration() {
 
 }
 
-
+/*--- Find the best Dino of all Generations ---*/
 function allTimeBest(savedDinos) {
 
     if (replay)
@@ -37,7 +39,7 @@ function allTimeBest(savedDinos) {
 }
 
 
-
+/*--- Find the current best Dino ---*/
 function returnBestDino(savedDinos) {
 
 
@@ -55,6 +57,7 @@ function returnBestDino(savedDinos) {
     return savedDinos[bi];
 }
 
+/*--- Normalizing Fitness Values for the fitness function ---*/
 function normalizeFitness(savedDinos, my_map) {
 
     let totalObs = my_map.totalObs;
@@ -80,19 +83,10 @@ function normalizeFitness(savedDinos, my_map) {
 
     }
 
-    // // Add up all the scores 
-    // let sum = 0;
-    // for (let i = 0; i < savedDinos.length; i++) {
-    //   sum += savedDinos[i].score;
-    // }
-    // // Divide by the sum
-    // for (let i = 0; i < savedDinos.length; i++) {
-    //   savedDinos[i].fitness = savedDinos[i].score / sum;
-    // }
 }
 
 
-// Generate a new population of dinos
+// Generate a new population of dinos based on old generation with a specific seleciton method
 function generate(oldDinos) {
     let newDinos = [];
 

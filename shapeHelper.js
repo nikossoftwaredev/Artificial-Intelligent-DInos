@@ -1,3 +1,4 @@
+/*--- A helper for drawing the Graph and the Neural Netwrok ---*/
 class shapeHelper {
 
     constructor(x1, y1, x2, y2) {
@@ -11,9 +12,6 @@ class shapeHelper {
         this.value = 0;
 
     }
-
-
-
 
 
 }

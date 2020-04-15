@@ -1,3 +1,4 @@
+/*--- Basic map for the Dinos to Jump ---*/
 class Map {
 
 
@@ -31,28 +32,28 @@ class Map {
     }
 
 
-
+    /*--- Drawing the map---*/
     show() {
 
         stroke(0);
 
         //line(0,height - (this.fromGround +10),width,height - (this.fromGround +10));    
 
-        //Show 
+        //Show cacti
         for (var i = 0; i < this.obstacles.length; i++) {
             this.obstacles[i].show();
 
         }
 
 
-        //Show
+        //Show birds
         for (var i = 0; i < this.birds.length; i++) {
             this.birds[i].show();
 
         }
 
 
-        //Show
+        //Show the road
         for (var i = 0; i < this.road.length; i++) {
             this.road[i].show();
 
@@ -61,7 +62,7 @@ class Map {
 
     }
 
-
+    /*--- Moving everything with a certain speed ---*/
     move() {
         //Add objects
 
@@ -137,7 +138,7 @@ class Map {
 
 
 
-
+        /*--- Spwning Objects ---*/
         if (this.obstacleTimer > Math.floor((Math.random() * 110) + 40)) {
             if (Math.floor(Math.random() * 2) == 0) //&& this.birdReady ) // 25% for a bird spawn and dinos must pass 10 objects 1st for a bird to start appearing in order to train the dinos for cactuses first
                 this.addBird();
@@ -186,7 +187,6 @@ class Map {
 
     addBird() {
         this.birds.push(new Bird(this.universalSpeed, this.sprites));
-
     }
 
 
