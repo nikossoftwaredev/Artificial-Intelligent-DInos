@@ -1,43 +1,38 @@
-class Road{
-  
-  constructor(speed,sprites){
-    this.fromGround = 30;
-    this.sprites = sprites;
-    this.speed = speed;
-    this.posX = width;
-    //this.posH = Math.floor(random()*25);
-    this.posY = height - this.fromGround;
-    this.posW = 1201;
-    
-  
-    
-    
-  }
-  
-  
-  updateY(){
-    this.posY = height - this.fromGround;
-    
-  }
-  
-  
-  show(){
-    
-    
-    
-    image(sprites[10],this.posX,this.posY); 
-    //line(this.posX,this.posY,this.posX + this.posW,this.posY);
-    
-  }
-  
-  
-  move(){
+/*--- This is the road of the map ---*/
+class Road {
 
-    this.posX -= this.speed;
- 
-    
-  }
-  
-  
-  
+    constructor(speed, sprites) {
+        this.fromGround = 30;
+        this.sprites = sprites;
+        this.speed = speed;
+        this.posX = width;
+        //this.posH = Math.floor(random()*25);
+        this.posY = height - this.fromGround;
+        this.posW = 1201;
+
+
+
+
+    }
+
+    /*--- Update if the window size changes ---*/
+    updateY() {
+        this.posY = height - this.fromGround;
+
+    }
+
+    /*--- Drawing the Road ---*/
+    show() {
+        image(sprites[10], this.posX, this.posY);
+
+    }
+
+    /*---Moving it at a certain speed ---*/
+    move() {
+        this.posX -= this.speed;
+
+    }
+
+
+
 }
