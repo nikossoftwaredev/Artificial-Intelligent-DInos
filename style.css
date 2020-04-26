@@ -1,77 +1,138 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  font-size: 15px;
+@font-face {
+    font-family: binary;
+    src: url(Assets/binchrt.ttf);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+td {
+    background-color: #000;
+    border: 1px solid yellow;
+    padding: 15px 32px;
+
+}
+
+.noPad {
+    padding: 0px;
 }
 
 
-canvas {
-  display: block;
+select,
+option {
+    background-color: #000000;
+    padding: 15px 32px;
+    font-size: 30px !important;
+    color: #fff !important;
+    font-family: binary !important;
+    text-align: center;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: blue;
+
+}
+
+button {
+    background-color:transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    width: 100%;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px !important;    
+    font-family: binary !important;
+    text-align: center;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: blue;
+
+}
+
+.tdInput {
+    border: 1px solid red;
+    width: 130px;
+    background-color: #242424;
+    padding: 0px;
+
+}
+
+.noPad:hover{
+    background-color: #242424;
 }
 
 input[type="text"] {
-  width:1.5em;
+    width: 90%;
+    color: white;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    background-color: #242424;
+    font-size: 30px !important;
+    color: #fff !important;
+    font-family: binary !important;
+    text-align: center;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: blue;
+
+    
+
+}
+
+
+
+body {
+    background-color: #000;
+    color: #ffffff;
+
+
+}
+
+
+div {
+    font-size: 30px !important;
+    color: #fff !important;
+    font-family: binary !important;
+    text-align: center;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: blue;
+    display: block;
+
+}
+
+.hide{
+  background-color: #000000; 
+  border: 1px solid yellow;
+  margin-left: 2px;
+  color: white;
   text-align: center;
-  border: 1px solid red;
-  background-color: #ffffff;
-  font-family: sans-serif;
-  font-size: 12px;
-}
-
-
-input[type=range]{
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border: 1px solid #000000;
-  height: 36px;
-  width: 90px;
-  border-radius: 3px;
-  background: #ffffff;
-  cursor: pointer;
-}
-
-
-input[type="file"]
-{
-  
-  color: #000;
-  background-color: #ffffff;
-  border: 1px solid blue;
-  width: 150px;
-}
-
-
-button {
-  font-family: sans-serif;
-  font-size: 15px;
-  padding: 10px 10px;
-  text-align: center;
-  color: #000;
-  background-color: #ffffff;
-  border: 1px solid blue;
-  width: 152px;
-  
-  
+  text-decoration: none;
+  width: 530.5px;
   
 }
 
-button:hover {background-color: #add8e6}
-
-p {
-  padding-left: 10px;
-  color: #000;
-  background-color: #ffffff;
-  border: 1px solid blue;
-  width: 140px;
+.hide:hover{
+    background-color: #242424; 
 }
 
 
-select, option {
-  padding-left: 7px;
-  font-family: sans-serif;
-  font-size: 14px;
-  width: 152px;
+
+
+.custom-file-upload {
+    background-color: #242424;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
 }
+
 
 
 

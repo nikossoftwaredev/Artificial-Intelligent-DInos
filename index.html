@@ -1,4 +1,7 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html>
+
+<head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <script src="p5.js"></script>
@@ -8,19 +11,122 @@
     <script src="sketch.js"></script>
     <script src="ArcadeButton.js"></script>
     <script src="Dino.js"></script>
-    <script src="Obstacle.js"></script> 
-    <script src="Bird.js"></script> 
-    <script src="Map.js"></script> 
-    <script src="Road.js"></script> 
-    <script src="shapeHelper.js"></script> 
-    <script src="/lib/matrix.js"></script> 
-    <script src="/lib/nn.js"></script> 
-  
+    <script src="Obstacle.js"></script>
+    <script src="Bird.js"></script>
+    <script src="Map.js"></script>
+    <script src="Road.js"></script>
+    <script src="shapeHelper.js"></script>
+    <script src="/lib/matrix.js"></script>
+    <script src="/lib/nn.js"></script>
+
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8">
 
-  </head>
-  <body>
-    
+</head>
+
+<body>
+
+    <div id="ui">
+        <table>
+            <tr>
+                <td>NUMBER OF DINOS</td>
+                <td class="tdInput"><input type="text" id="in1"></td>
+            </tr>
+            <tr>
+                <td>MIDDLE NODES</td>
+                <td class="tdInput"><input type="text" id="in2"></td>
+            </tr>
+            <tr>
+                <td>PUNISH JUMP</td>
+                <td class="noPad" id="td_check"><a style="color : #00FF00" id="pjump">YES</a></td>
+
+            </tr>
+            <tr>
+                <td class="noPad" colspan="2"><select id="selection">
+                        <option value="ROULETTE WHEEL">ROULETTE WHEEL</option>
+                        <option value="SURVIVAL OF THE FITTEST">SURVIVAL OF THE FITTEST</option>
+                        <option value="RANDOM">RANDOM</option>
+                    </select>
+                </td>
+            <tr>
+                <td class="noPad" colspan="2"><button id="PLAY">PLAY</button></td>
+            </tr>
+            <tr>
+                <td class="noPad" colspan="2"><button id="RESTART">RESTART</button></td>
+            </tr>
+            <tr>
+                <td class="noPad" colspan="2"><button id="sbd">SAVE BEST DINO</button></td>
+            </tr>
+
+            <tr>
+                <td id="loadTD" class="noPad"  colspan="2">
+                        <input id="hiddenInput" type="file" hidden ="hidden" /><button id="lbd">LOAD BEST DINO</button>
+                  </td>
+            </tr>
+        </table>
+    </div>
+    <button id="hideDiv" class="hide" >SHOW UI</button>
+
+
 </body>
+
+<script>
+    const hiddenInputB = document.getElementById("hiddenInput");
+    const loadTD = document.getElementById("loadTD");
+    const loadButton = document.getElementById("lbd");
+
+    loadTD.addEventListener("click",function (){
+        hiddenInputB.click();
+    });
+
+    hiddenInputB.addEventListener("change",function(){
+        
+        if(hiddenInputB.value){
+            console.log(hiddenInputB);
+            loadButton.innerHTML = hiddenInputB.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+            loadBestDino();
+        }
+            
+        else   
+            loadButton.innerHTML = "LOAD BEST DINO";
+
+    });
+    //setting the default display of the div
+    document.getElementById("ui").style.display = "none"
+
+    document.getElementById("hideDiv").addEventListener("click", hideUI);
+    
+
+    function hideUI() {
+        if (document.getElementById("ui").style.display == "block") {
+            document.getElementById("hideDiv").innerHTML = "SHOW UI"
+            document.getElementById("hideDiv").style.width = "300px"
+            document.getElementById("ui").style.display = "none";
+        } else {
+            document.getElementById("hideDiv").innerHTML = "HIDE UI";
+            document.getElementById("hideDiv").style.width = "530.5px"
+            document.getElementById("ui").style.display = "block";
+        }
+
+    }
+
+    let tdR = document.getElementById("td_check");
+    let status = document.getElementById("pjump");
+
+    tdR.addEventListener("click", changeState);
+    var state = true;
+
+    function changeState() {
+        if (status.innerHTML == "YES") {
+            status.style.color = "#FF0000";
+            status.innerHTML = "NO";
+            state = false;
+        } else if (status.innerHTML == "NO") {
+            status.style.color = "#00FF00";
+            status.innerHTML = "YES";
+            state = true;
+        }
+    }
+</script>
+
 </html>

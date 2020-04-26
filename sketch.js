@@ -14,6 +14,8 @@ var offNum = 18;
 var labelSpacing = 30;
 var punishJump = true;
 
+var multiply = 1;
+
 
 
 var allTimeBestDino = null;
@@ -76,7 +78,7 @@ function preload() {
 function setup() {
     textFont(customFont);
     //createCanvas(1200, 400);
-    createCanvas(windowWidth - 100, windowHeight - 100);
+    createCanvas(windowWidth -50, windowHeight - 100);
 
 
     angleMode(DEGREES);
@@ -126,62 +128,56 @@ function windowResized() {
 
 }
 
+function hideTheDiv() {
+    div.style('display', 'none');
+    showUI.html('SHOW UI');
+    showUI.style('width', '300px');
+}
+
 /*--- All the User Interaction  elements---*/
 function userControls() {
     /* UI ELEMENTS */
-    let topY = 130;
+    let topY = 50;
     let leftX = 10;
 
-
-    nod = createP('Number of Dinos');
-    nod.position(leftX, topY - nod.height * 0.8);
-    popInput = createInput().attribute('placeholder', '');
-    popInput.position(leftX + nod.width - popInput.width, topY);
-
-
-    hli = createP('Middle Nodes');
-    hli.position(leftX, popInput.y + popInput.height - hli.height * 0.8);
-    hiddenLayersInput = createInput();
-    hiddenLayersInput.position(leftX + nod.width - popInput.width, popInput.y + popInput.height);
+    showUI = select('#hideDiv');
+    showUI.position(leftX, topY)
+    showUI.style('width', '300px');
 
 
 
-    sel = createSelect();
-    sel.position(leftX, hiddenLayersInput.y + hiddenLayersInput.height);
-    sel.option('Roulete Wheel');
-    sel.option('Survival of the fittest');
-    sel.option('Random');
+    div = select('#ui');
+    div.position(leftX, topY + showUI.height)
 
-    p = createP('Punish Jump');
-    p.position(leftX, sel.y + sel.height - p.height * 0.8);
-    checkbox = createCheckbox('', true);
-    checkbox.position(leftX + p.width * 0.8, sel.y + sel.height);
+    popInput = select('#in1');
+
+    hiddenLayersInput = select('#in2');
+
+    sel = select('#selection');
 
 
+    sButton = select('#sbd');
+    sButton.style('color', '#ffffff');
+    sButton.mousePressed(saveBestDino)
 
-    sButton = createFileInput(loadBestDino);
-    //sButton.text("Save Best Dino");
-    sButton.position(leftX, checkbox.y + checkbox.height);
-
-
-    pButton = createButton("Play");
-    pButton.position(leftX, sButton.y + sButton.height + 20)
+    pButton = select('#PLAY');
+    pButton.style('color', '#00ff00');
     pButton.mousePressed(play);
 
 
-    rButton = createButton('Restart');
-    rButton.position(leftX, pButton.y + pButton.height);
+    rButton = select('#RESTART');
+    rButton.style('color', '#ffffff');
     rButton.mousePressed(restart);
 
-    lButton = createButton("Save Best Dino");
-    lButton.position(leftX, rButton.y + rButton.height)
-    lButton.mousePressed(saveBestDino)
+    lButton = select('#lbd');
+    lButton.style('color', '#ffffff');
+    //lButton.mousePressed(loadBestDino);
 
-    sP = createP('Speed');
-    sP.position(leftX, lButton.y + lButton.height);
+    //sP = createP('Speed');
+    //sP.position(leftX, lButton.y + lButton.height);
 
-    slider = createSlider(1, 10, 1);
-    slider.position(leftX + 55, lButton.y + lButton.height + 6)
+    //slider = createSlider(1, 10, 1);
+    //slider.position(leftX + 55, lButton.y + lButton.height + 6)
 
 
 
@@ -198,12 +194,15 @@ function userControls() {
 
 /*--- Making theuUser is able to play the game ---*/
 function play() {
-    if (pButton.elt.firstChild.data == "Play") { //get the text of the button
+    console.log(pButton.html());
+    if (pButton.html() == "PLAY") { //get the text of the button
         playGame = true;
-        pButton.elt.firstChild.data = "Stop";
-    } else if (pButton.elt.firstChild.data == "Stop") {
+        pButton.html("STOP");
+        pButton.style('color', '#ff0000');
+    } else if (pButton.html() == "STOP") {
         playGame = false;
-        pButton.elt.firstChild.data = "Play";
+        pButton.html("PLAY");
+        pButton.style('color', '#00ff00');
 
     }
 
@@ -222,12 +221,13 @@ function saveBestDino() {
 }
 
 /*--- Loading the JSON file of the Dinos' brain---*/
-function loadBestDino(file) {
+function loadBestDino() {
+    filename = lButton.html();
+
     replay = true;
 
-    console.log(file);
 
-    let dinoJSON = ajaxGetText(file.name);
+    let dinoJSON = ajaxGetText(filename);
 
     let brainD = NeuralNetwork.deserialize(dinoJSON);
 
@@ -263,7 +263,7 @@ function ajaxGetText(filename) {
 function selectToString() {
     switch (selection_method) {
         case 0:
-            return "ROULLETE";
+            return "ROULETE WHEEL";
             break;
         case 1:
             return "SURVIVAL OF THE FITTEST"
@@ -280,7 +280,7 @@ function selectToString() {
 /*--- Restarting the whole simulation ---*/
 function restart() {
 
-
+    hideTheDiv();
     for (let i = 0; i < ArcadeButtons.length; i++) {
         online[i] = ArcadeButtons[i].checked;
     }
@@ -313,7 +313,7 @@ function restart() {
     allTimeBestDino = null;
 
     switch (sel.value()) {
-        case "ROULLETE":
+        case "ROULETTE WHEEL":
             selection_method = 0;
             break;
         case "SURVIVAL OF THE FITTEST":
@@ -324,9 +324,10 @@ function restart() {
             break;
     }
 
+    console.log("Selection method" + selection_method);
 
-
-    punishJump = checkbox.checked();
+    punishJump = state;
+    console.log("Punish Jump = " + punishJump)
 
     if (popInput.value() != '')
         POP_SIZE = popInput.value();
@@ -388,22 +389,40 @@ function mousePressed() {
 
 }
 
+function keyPressed(){
+    
+    if (keyCode === RIGHT_ARROW) {
+        if (multiply < 10)
+            multiply += 1;
+        else
+            multiply = 10;
+    } else if (keyCode == LEFT_ARROW) {
+        if (multiply > 1)
+            multiply -= 1;
+        else
+            multiply = 1;
+    }
+}
+
 /*--- Calculating what to draw ---*/
 function draw() {
 
 
-    if (keyIsDown(UP_ARROW)) {
-        dinos[0].cmd = "jump";
-    } else if (keyIsDown(DOWN_ARROW)) {
-        dinos[0].cmd = "duck";
-    } else {
-        dinos[0].cmd = "";
-        dinos[0].isDucking = false;
+    if (playGame) {
+        if (keyIsDown(UP_ARROW)) {
+            dinos[0].cmd = "jump";
+        } else if (keyIsDown(DOWN_ARROW)) {
+            dinos[0].cmd = "duck";
+        } else {
+            dinos[0].cmd = "";
+            dinos[0].isDucking = false;
+        }
     }
 
 
 
-    for (let c = 0; c < slider.value(); c++) {
+
+    for (let c = 0; c < multiply; c++) {
         my_map.move();
 
 
@@ -478,10 +497,14 @@ function drawingOnly() {
 
 
     text("SCORE : " + Math.floor(dinos[0].score), gWidth, 20); //move it to sketch
+
+    gWidth += textWidth("SCORE : " + Math.floor(dinos[0].score)) + labelSpacing;
+
+    text("FF : x" + multiply, gWidth, 20); //move it to sketch
+
     for (let dino of dinos) {
         dino.show();
     }
-
     pop();
 
 
@@ -493,7 +516,7 @@ function drawingOnly() {
 
 
     pauseX = width - 70;
-    pauseY = 70;
+    pauseY = 80;
     image(sprites[pauseNum], pauseX - 50, pauseY - 50);
 
 

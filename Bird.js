@@ -27,7 +27,8 @@ class Bird {
 
         if (this.upOrDown == 0)
             this.posY = height - 9 - ((this.posH + 5) * 2); //some weird math that seem to work
-        this.posY = height - this.fromGround - (this.posH);
+        else  
+            this.posY = height - this.fromGround - (this.posH);
 
     }
 
